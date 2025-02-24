@@ -64,6 +64,8 @@ function playRound(computerChoice, humanChoice) {
     updateScore();
     return 1;
   }
+  resultDiv.textContent = RPSChoice[humanChoice] + " == " + RPSChoice[computerChoice];
+  winnerDiv.textContent = "Tie";
   return -1;
 }
 
