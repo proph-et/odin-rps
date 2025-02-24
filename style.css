@@ -1,0 +1,49 @@
+body{
+  margin:0;
+  background-color: black;
+  font-family: "JetBrains Mono", sans-serif;
+}
+
+.scoreboard {
+  display: flex;
+  background-color: grey;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 32px;
+  padding: 10vw;
+}
+
+.selections {
+  display: flex;
+  background-color: salmon;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 32px;
+  padding: 10vw;
+}
+
+.result-container {
+  display: flex;
+  flex-direction: column;
+  background-color: blue;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  padding: 10vw;
+}
+
+.rps-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1vw;
+}
+
+#rock,
+#paper,
+#scissors {
+  width: 256px;
+  height: 128px;
+  background-color: saddlebrown;
+  font-size: 32px;
+}

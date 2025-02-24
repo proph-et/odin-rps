@@ -1,14 +1,30 @@
-function getComputerChoice() {
-  return Math.floor(Math.random() * 3) + 1;
-}
+// set up html elements
 
-function getHumanChoice() {
-  let choice = 0;
-  do {
-    choice = parseInt(prompt("input your choice: ROCK = 1, PAPER = 2, SCISSORS = 3"))
-  } while ((choice < 1 || choice > 3))
-  return choice;
-}
+const humanScoreDiv = document.querySelector(".human-score");
+humanScoreDiv.textContent = "Your Score: -";
+const computerScoreDiv = document.querySelector(".computer-score");
+computerScoreDiv.textContent = "Computer Score: -";
+const humanSelectionDiv = document.querySelector(".human-selection");
+humanSelectionDiv.textContent = "You choose: -";
+const computerSelectionDiv = document.querySelector(".computer-selection");
+computerSelectionDiv.textContent = "The Computer chooses: -";
+
+const resultDiv = document.querySelector(".result");
+resultDiv.textContent = "Play A Game";
+const winnerDiv = document.querySelector(".winner");
+winnerDiv.textContent = "-";
+
+
+const rockButton = document.querySelector("#rock");
+const paperButton = document.querySelector("#paper");
+const scissorsButton = document.querySelector("#scissors");
+
+rockButton.addEventListener("click", () => playRound(getComputerChoice(), 1));
+paperButton.addEventListener("click", () => playRound(getComputerChoice(), 2));
+scissorsButton.addEventListener("click", () => playRound(getComputerChoice(), 3));
+
+
+// set up game logic
 
 const RPSChoice = Object.freeze({
   1: "ROCK",
@@ -16,46 +32,42 @@ const RPSChoice = Object.freeze({
   3: "SCISSORS",
 });
 
+function getComputerChoice() {
+  return Math.floor(Math.random() * 3) + 1;
+}
+
+let humanScore = 0;
+let computerScore = 0;
+
 function playRound(computerChoice, humanChoice) {
+  humanSelectionDiv.textContent = "You choose: " + RPSChoice[humanChoice];
+  computerSelectionDiv.textContent = "The Computer chooses: " + RPSChoice[computerChoice];
+
   if (
       humanChoice === 1 && computerChoice === 2 ||
       humanChoice === 2 && computerChoice === 3 ||
       humanChoice === 3 && computerChoice === 1
   ) {
-    console.log(RPSChoice[computerChoice] + " beats " + RPSChoice[humanChoice]);
+    resultDiv.textContent = RPSChoice[computerChoice] + " beats " + RPSChoice[humanChoice];
+    winnerDiv.textContent = "You Lose";
+    computerScore++;
+    updateScore();
     return 0;
   } else if (
       computerChoice === 1 && humanChoice === 2 ||
       computerChoice === 2 && humanChoice === 3 ||
       computerChoice === 3 && humanChoice === 1
   ) {
-    console.log(RPSChoice[humanChoice] + " beats " + RPSChoice[computerChoice]);
+    resultDiv.textContent = RPSChoice[humanChoice] + " beats " + RPSChoice[computerChoice];
+    winnerDiv.textContent = "You Win";
+    humanScore++;
+    updateScore();
     return 1;
   }
   return -1;
 }
 
-let humanScore = 0;
-let computerScore = 0;
-let gameCounter = 0;
-while (gameCounter < 5) {
-  let result = playRound(getComputerChoice(), getHumanChoice());
-  if (result === 0) {
-    computerScore++;
-  } else if (result === 1) {
-    humanScore++;
-  } else {
-    console.log("tied");
-  }
-  gameCounter++;
+function updateScore() {
+  humanScoreDiv.textContent = "Your Score: " + String(humanScore);
+  computerScoreDiv.textContent = "Computer Score: " + String(computerScore);
 }
-console.log("humanScore: " + humanScore);
-console.log("computerScore: " + computerScore);
-if (computerScore > humanScore) {
-  console.log("computer wins");
-} else if (humanScore > computerScore) {
-  console.log("human wins");
-} else {
-  console.log("tie game");
-}
-
